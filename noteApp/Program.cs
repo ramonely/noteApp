@@ -41,7 +41,36 @@ namespace noteApp
                             Console.WriteLine($"<{i}>\t{item.Title}\t\t{item.Message}");
                         }
                         Console.Write("\nEnter a Note ID you want to edit: ");
-                        int editNote = Convert.ToInt32(Console.ReadLine());
+                        int editNote = 0;
+                        bool format = true;
+                        while (format)
+                        {
+                            try
+                            {
+                                editNote = Convert.ToInt32(Console.ReadLine());
+                                if (editNote <= Task.Count)
+                                {
+                                    format = false;
+                                }
+                                else
+                                {
+                                    Console.Write("\nPlease only enter a Note ID listed: ");
+                                    continue;
+                                }
+                            }
+                            catch (FormatException)
+                            {
+                                {
+                                    Console.Write("\nPlease only enter a Note ID listed: ");
+                                    continue;
+                                }
+                            }
+                            catch (IndexOutOfRangeException)
+                            {
+                                Console.Write("\nPlease only enter a Note ID listed: ");
+                                continue;
+                            }
+                        }
 
                         Note b = Task[editNote];
                         Console.Write($"\nDo you want to edit (1) \"{b.Title}\" or (2) \"{b.Message}\": ");
